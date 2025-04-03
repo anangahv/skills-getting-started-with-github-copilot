@@ -98,24 +98,7 @@ def signup_for_activity(activity_name: str, email: str):
     # Get the specificy activity
     activity = activities[activity_name]
 
-    # Validate student is not already signed up
-    if email in activity["participants"]:
-        raise HTTPException(status_code=400, detail="Already signed up")
-    # Validate max participants not exceeded
-    if len(activity["participants"]) >= activity["max_participants"]:
-        raise HTTPException(status_code=400, detail="Max participants reached")
-    # Validate email format
-    if "@" not in email or "." not in email.split("@")[-1]:
-        raise HTTPException(status_code=400, detail="Invalid email format")
-    # Validate email domain
-    if not email.endswith("@mergington.edu"):
-        raise HTTPException(status_code=400, detail="Invalid email domain")
-    # Validate email not empty
-    if not email:
-        raise HTTPException(status_code=400, detail="Email cannot be empty")
-    # Validate email not already signed up              
-
-
+   
     # Add student
     activity["participants"].append(email)
     return {"message": f"Signed up {email} for {activity_name}"}
